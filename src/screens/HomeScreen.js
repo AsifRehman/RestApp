@@ -13,20 +13,27 @@ const HomeScreen = ({ navigation }) => {
       <TouchableOpacity
         style={[styles.button, isHovered && styles.buttonHovered]}
         onPress={() => navigation.navigate('Profile')}
-      onPressIn={() => setIsHovered(true)}
-      onPressOut={() => setIsHovered(false)}
+        onPressIn={() => setIsHovered(true)}
+        onPressOut={() => setIsHovered(false)}
       >
-      <Text style={styles.buttonText}>Go to Jane's profile</Text>
-    </TouchableOpacity>
-    </SafeAreaView >
+        <Text style={styles.buttonText}>GO TO MENU</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={[styles.button, styles.buttonHovered, { marginTop: 20 }]}
+        onPress={() => navigation.navigate('Blue')}
+      >
+        <Text style={styles.buttonText}>GO TO BLUE SCREEN</Text>
+      </TouchableOpacity>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   button: {
+    fontSize: 24,
     alignSelf: 'center',
     marginTop: '50%',
-    padding: 10,
+    padding: 50,
     backgroundColor: 'gray',
   },
   buttonHovered: {

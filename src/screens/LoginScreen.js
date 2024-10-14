@@ -70,12 +70,9 @@ export default function LoginScreen() {
         try {
 
 
-            const axiosInstance = axios.create({
-                baseURL: "https://api.cloudpkerp.com:8081",
-
-            })
-            const response = await axiosInstance.post(
-                '/api/login/GetUserTmpCode',
+            
+            const response = await axios.post(
+                'https://api.cloudpkerp.com:8081/api/login/GetUserTmpCode',
                 {
                     UserName: username,
                     Pwd: password,
@@ -91,11 +88,11 @@ export default function LoginScreen() {
                 }
             );
 
-            console.log("response data", response)
-
+            
             setIsLoading(false);
-
+            
             if (response.data && response.data.token) {
+                console.log("response data", response.data.token)
                 setToken(response.data.token);
                 navigation.navigate('Home');
             } else {
