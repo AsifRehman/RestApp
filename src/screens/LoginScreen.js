@@ -3,6 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ActivityInd
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 import NetInfo from "@react-native-community/netinfo";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function LoginScreen() {
     const [token, setToken] = useState('');
@@ -18,6 +19,18 @@ export default function LoginScreen() {
         fetchIpAddress();
     }, []);
 
+
+    const storeData = async (value) => {
+        try {
+            const jsonValue = JSON.stringify(value);
+
+          await AsyncStorage.setItem('token', jsonValue);
+        } catch (e) {
+          // saving error
+          
+        }
+      };
+
     const fetchIpAddress = async () => {
         try {
             const response = await axios.get('https://api.ipify.org?format=json');
@@ -31,14 +44,14 @@ export default function LoginScreen() {
 
     const logError = (context, error) => {
         const errorMessage = `
-      ${context}:
-      Message: ${error.message}
-      Stack: ${error.stack}
-      Response: ${JSON.stringify(error.response?.data)}
-      Status: ${error.response?.status}
-      Headers: ${JSON.stringify(error.response?.headers)}
+    ${context}:
+    Message: ${error.message}
+    Stack: ${error.stack}
+    Response: ${JSON.stringify(error.response?.data)}
+    Status: ${error.response?.status}
+    Headers: ${JSON.stringify(error.response?.headers)}
     `;
-        console.log(errorMessage);
+        console.error(errorMessage);
         setErrorLog(prevLog => prevLog + '\n\n' + errorMessage);
     };
 
@@ -94,7 +107,8 @@ export default function LoginScreen() {
             if (response.data && response.data.token) {
                 console.log("response data", response.data.token)
                 setToken(response.data.token);
-                navigation.navigate('Home');
+                storeData(response.data.token);
+                navigation.navigate('HomeStack');
             } else {
                 Alert.alert('Error', 'Invalid credentials or no token received');
             }
