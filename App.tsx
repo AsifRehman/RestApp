@@ -8,6 +8,7 @@ import HomeScreen from './src/screens/HomeScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import SettingsScreen from './src/screens/SettingsScreen'; // Example drawer screen
 import TodaySales from './src/screens/TodaySales';
+import SaleDetails from './src/screens/SaleDetails';
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -18,6 +19,11 @@ function HomeStack() {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="TodaySales" component={TodaySales} />
+      <Stack.Screen 
+      name="SaleDetails" 
+      component={SaleDetails} 
+      initialParams={{ vocNo: '1' }} // Provide a default value for vocNo
+      />
     </Stack.Navigator>
   );
 }

@@ -25,12 +25,31 @@ export default function LoginScreen() {
         try {
             const jsonValue = JSON.stringify(value);
 
-          await AsyncStorage.setItem('token', jsonValue);
+            await AsyncStorage.setItem('token', jsonValue);
         } catch (e) {
-          // saving error
+            // saving error
 
         }
-      };
+    };
+
+    const fetchStoredData = async () => {
+        try {
+            const storedUsername = await AsyncStorage.getItem('username');
+            const storedPassword = await AsyncStorage.getItem('password');
+            const storedCompanyEmail = await AsyncStorage.getItem('companyEmail');
+
+            if (storedUsername) setUsername(storedUsername);
+            if (storedPassword) setPassword(storedPassword);
+            if (storedCompanyEmail) setCompanyEmail(storedCompanyEmail);
+        } catch (e) {
+            console.error('Error fetching stored data:', e);
+        }
+    };
+
+    useEffect(() => {
+        fetchIpAddress();
+        fetchStoredData();
+    }, []);
 
     const fetchIpAddress = async () => {
         try {
@@ -66,6 +85,15 @@ export default function LoginScreen() {
             Alert.alert('Error', 'Please fill in all fields');
             return;
         }
+
+        // Store username, password, and companyEmail in AsyncStorage
+        try {
+            await AsyncStorage.setItem('username', username);
+            await AsyncStorage.setItem('password', password);
+            await AsyncStorage.setItem('companyEmail', companyEmail);
+        } catch (e) {
+            console.error('Error storing user data:', e);
+        }
         if (!ipAddress) {
             Alert.alert('Error', 'Failed to get IP address. Please try again.');
             return;
@@ -82,7 +110,7 @@ export default function LoginScreen() {
 
         // Alert.alert('API Base URL', api.defaults.baseURL);
 
-        try{
+        try {
             const response = await api.post(
                 '/login/GetUserTmpCode',
                 {
