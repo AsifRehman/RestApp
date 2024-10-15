@@ -33,6 +33,7 @@ function App() {
           headerTitle: '',
         }} />
         <Drawer.Screen name="HomeStack" component={HomeStack} options={{ title: 'Home' }} />
+        <Drawer.Screen name="TodaySales" component={TodaySales} />
         <Drawer.Screen name="Settings" component={SettingsScreen} />
       </Drawer.Navigator>
     </NavigationContainer>

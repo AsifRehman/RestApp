@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 import NetInfo from "@react-native-community/netinfo";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import api from '../api';
 
 export default function LoginScreen() {
     const [token, setToken] = useState('');
@@ -27,7 +28,7 @@ export default function LoginScreen() {
           await AsyncStorage.setItem('token', jsonValue);
         } catch (e) {
           // saving error
-          
+
         }
       };
 
@@ -65,7 +66,6 @@ export default function LoginScreen() {
             Alert.alert('Error', 'Please fill in all fields');
             return;
         }
-
         if (!ipAddress) {
             Alert.alert('Error', 'Failed to get IP address. Please try again.');
             return;
@@ -80,42 +80,38 @@ export default function LoginScreen() {
             return;
         }
 
-        try {
+        // Alert.alert('API Base URL', api.defaults.baseURL);
 
-
-            
-            const response = await axios.post(
-                'https://api.cloudpkerp.com:8081/api/login/GetUserTmpCode',
+        try{
+            const response = await api.post(
+                '/login/GetUserTmpCode',
                 {
                     UserName: username,
                     Pwd: password,
                     CompanyEmail: companyEmail,
                     ip: ipAddress
                 },
-                {
-                    timeout: 15000, // 15 seconds timeout
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json',
-                    },
-                }
             );
 
-            
+
             setIsLoading(false);
-            
+
             if (response.data && response.data.token) {
                 console.log("response data", response.data.token)
-                setToken(response.data.token);
-                storeData(response.data.token);
+                setToken(response.data.token[0]);
+                storeData(response.data.token[0]);
                 navigation.navigate('HomeStack');
             } else {
                 Alert.alert('Error', 'Invalid credentials or no token received');
             }
         } catch (error) {
+            Alert.alert('Error', JSON.stringify(error));
             setIsLoading(false);
             logError('Login Error', error);
 
+            // Alert.alert(`${api.defaults.baseURL}/login/GetUserTmpCode`);
+            // Alert.alert(JSON.stringify(error.request));
+            // console.error('Error URL:', errorUrl);
             if (error.code === 'ECONNABORTED') {
                 Alert.alert('Timeout Error', 'The request took too long to complete. Please try again.');
             } else if (error.response) {

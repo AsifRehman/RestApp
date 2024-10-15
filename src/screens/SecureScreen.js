@@ -1,20 +1,18 @@
-// TodaySales.js
+// SecureScreen.js
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, StyleSheet, ActivityIndicator, Alert } from 'react-native';
-import api from '../api';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import api from './api'; // Import your Axios instance
 
-const TodaySales = () => {
+const SecureScreen = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const fetchData = async () => {
     try {
-      const response = await api.get('/stk/sal?sdate=2024-10-14&edate=2024-10-14&orderby=Date');
-      setData(response.data?.records);
-      console.log(response.data.records)
+      const response = await api.get('/products');
+      setData(response.data);
     } catch (error) {
-      Alert.alert('Error', JSON.stringify(error));
+      Alert.alert('Error', 'Failed to fetch secure data.');
     } finally {
       setLoading(false);
     }
@@ -34,7 +32,7 @@ const TodaySales = () => {
       keyExtractor={(item, index) => index.toString()}
       renderItem={({ item }) => (
         <View style={styles.item}>
-          <Text>{item.ProdName}</Text>
+          <Text>{item.name}</Text>
         </View>
       )}
     />
@@ -46,4 +44,4 @@ const styles = StyleSheet.create({
   item: { padding: 15, borderBottomWidth: 1, borderBottomColor: '#ccc' },
 });
 
-export default TodaySales;
+export default SecureScreen;
