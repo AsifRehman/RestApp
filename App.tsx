@@ -9,6 +9,8 @@ import LoginScreen from './src/screens/LoginScreen';
 import SettingsScreen from './src/screens/SettingsScreen'; // Example drawer screen
 import TodaySales from './src/screens/TodaySales';
 import SaleDetails from './src/screens/SaleDetails';
+import ProdTypesScreen from './src/screens/ProdTypesScreen';
+import ProductsScreen from './src/screens/ProductsScreen';
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -41,6 +43,8 @@ function App() {
         <Drawer.Screen name="HomeStack" component={HomeStack} options={{ title: 'Home' }} />
         <Drawer.Screen name="TodaySales" component={TodaySales} />
         <Drawer.Screen name="Settings" component={SettingsScreen} />
+        <Drawer.Screen name="ProdTypesScreen" component={ProdTypesScreen} />
+        <Drawer.Screen name="Products" component={ProductsScreen} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
