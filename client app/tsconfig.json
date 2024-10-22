@@ -1,0 +1,19 @@
+{
+  "extends": "@react-native/typescript-config/tsconfig.json",
+  "compilerOptions": {
+    "target": "es5",
+    "module": "esnext", // Changed from "commonjs" to "esnext"
+    "strict": true,
+    "jsx": "react",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "types": ["node","react", "react-native", "react-native-share"],
+    "baseUrl": ".",
+    "paths": {
+      "*": ["node_modules/*"],
+      "src/*": ["src/*"]
+    }
+  },
+  "include": [ "react-native-vector-icons.d.ts"]
+}
