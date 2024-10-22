@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "166706461242",
+    "project_id": "towerce-c1c1b",
+    "storage_bucket": "towerce-c1c1b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:166706461242:android:96cd13d16cc06b4ae8d303",
+        "android_client_info": {
+          "package_name": "com.towerce"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwcXzCSHtcwOP4zCBaI5l1-dLy-Zopn2o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
