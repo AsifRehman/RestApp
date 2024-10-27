@@ -67,7 +67,7 @@ export default function SaleDetails() {
   const handleCustomQtyChange = (index, text) => {
     const updatedData = [...data.Trans];
     const item = updatedData[index];
-    item.PQty = parseInt(text) || 0;
+    item.PQty = Number(text) || 0;
     item.Qty = item.PQty;
     item.NetAmount = item.Qty * (item.ListRate || item.Rate);
     updateDataAndCharges(updatedData);
@@ -106,7 +106,7 @@ export default function SaleDetails() {
   };
 
   if (loading) {
-    return <ActivityIndicator size="large" style={styles.loader} />;
+    return <ActivityIndicator size="large" color={'#ff3d00'} style={styles.loader} />;
   }
 
   return (
@@ -165,7 +165,7 @@ export default function SaleDetails() {
                 <Icon name="plus" size={20} color="white" />
               </TouchableOpacity>
             </View>
-            <Text style={styles.netAmount}>{item.NetAmount.toFixed(2)} PKR</Text>
+            <Text style={styles.netAmount}>{Math.round(item.NetAmount)}</Text>
             <TouchableOpacity style={styles.deleteButton} onPress={() => handleDelete(index)}>
               <Icon name="delete-outline" size={24} color="#fff" />
             </TouchableOpacity>
@@ -282,6 +282,7 @@ const styles = StyleSheet.create({
     width: 40,
     textAlign: 'center',
     marginHorizontal: 5,
+    color: '#333333',
   },
   netAmount: {
     flex: 2,
