@@ -243,7 +243,7 @@ export default function LoginScreen() {
                 />
                  <View style={styles.emailContainer}>
                     <TextInput
-                        style={[styles.input, { flex: 1 }]}
+                        style={[styles.input, { flex: 1, borderTopRightRadius: 0, borderBottomRightRadius: 0, borderRightWidth: 0 }]}
                         placeholder="Enter Company Email"
                         placeholderTextColor="#aaa"
                         value={companyEmail}
@@ -342,6 +342,8 @@ const styles = StyleSheet.create({
         borderColor: '#ccc',
         borderWidth: 1,
         borderRadius: 8,
+        borderTopLeftRadius: 0,
+        borderBottomLeftRadius: 0,
         height: 45,
         justifyContent: 'center',
         paddingHorizontal: 5,
